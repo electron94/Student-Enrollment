@@ -14,14 +14,14 @@ function Login() {
         <div className="className='row mt-5">
           <form className='bg-white rounded p-4 shadow-md'>
           <div className='form-group mb-3 p-2'>
-        <label htmlFor='email' className="text-sm font-medium text-gray-700">Email</label>
+        <label htmlFor='name' className="text-sm font-medium text-gray-700">Name</label>
         <input
-          type='email'
-          className={`w-full border rounded p-2 ${errors.email && errors.email.type === "required" ? "border-red-500" : "border-gray-300"}`}
-          placeholder='enter email'
-          {...register("email", { required: true })}
-           onBlur={() => trigger("email")}/>
-           {errors.email && errors.email.type === "required" && <p className='text-red-500 text-sm'>Please enter the email</p>}
+          type='name'
+          className={`w-full border rounded p-2 ${errors.name && errors.name.type === "required" ? "border-red-500" : "border-gray-300"}`}
+          placeholder='enter name'
+          {...register("name", { required: true })}
+           onBlur={() => trigger("name")}/>
+           {errors.name && errors.name.type === "required" && <p className='text-red-500 text-sm'>Please enter the name</p>}
         </div>    
         <div className='form-group mb-3 p-2'>
         <label htmlFor='password' className="text-sm font-medium text-gray-700">Password</label>
