@@ -13,11 +13,13 @@ const HomePage: React.FC = () => {
     
         
        <div >
+       <Link href="/Users/Login">
          <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 mb-2" style={{ marginLeft: '40px' }} >User Login</button>
+         </Link>
          <Link href="/Users">
          <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2" style={{ marginLeft: '40px' }} >User SignUp</button>
          </Link>
-         
+
        </div>
     
       <Link href="/Admin">
