@@ -16,6 +16,7 @@ const EnrollmentForm: React.FC = () => {
   });
 
   const handleCourseChange = (e:any) => {
+    
     setSelectedCourse(e.target.value);
   };
 
