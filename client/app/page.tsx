@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
 
        </div>
     
-      <Link href="/Admin">
+      <Link href="/Admin/Login">
         <div>
       <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-2 py-2" style={{ marginLeft: '1500px' }} >Admin Login</button>
       </div>
