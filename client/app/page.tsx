@@ -1,6 +1,8 @@
+
 // Example in your main page
 import React from 'react';
 import Link from 'next/link';
+
 
 const HomePage: React.FC = () => {
   return (
@@ -12,5 +14,4 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
-
 export default HomePage;
