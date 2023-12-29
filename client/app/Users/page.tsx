@@ -16,7 +16,7 @@ const EnrollmentForm: React.FC = () => {
   });
 
   const handleCourseChange = (e:any) => {
-    
+
     setSelectedCourse(e.target.value);
   };
 
@@ -121,7 +121,7 @@ const EnrollmentForm: React.FC = () => {
               {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
         <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" type="submit"> submit</button>
-        <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" type="submit"> Login</button>
+     
       </form>
     </div>
     </main>
