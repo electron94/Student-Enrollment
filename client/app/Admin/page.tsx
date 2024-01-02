@@ -82,6 +82,7 @@ const handleEdit =(e:any, id:any) => {
               </tr>
 
             </thead>
+            
             <tbody>
               {Array.isArray(Student) &&
                 Student.map((d, index) => (
