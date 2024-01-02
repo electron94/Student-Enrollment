@@ -120,6 +120,25 @@ const EnrollmentForm: React.FC = () => {
              {errors.phone&&errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
               {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
+      
+        <div className='form-group mb-3 p-2'>
+            <label htmlFor="password" className='text-sm font-medium text-grey-700'>Password:</label>
+            <input
+              className={`w-full border rounded p-2 ${errors.password && errors.password.type === "required" ? "border-red-500" : "border-gray-300"}`}
+              type='password'
+              id='password'
+              {...register("password", { required: true, minLength: 8 })}
+              onBlur={() => trigger("password")}
+              onChange={(e) => {
+                setStudentData({ ...studentData, password: e.target.value });
+                setValue("password", e.target.value);
+                trigger("password");
+                setIsModified(true);
+              }}
+            />
+            {errors.password && errors.password.type === "required" && <p className='text-red-500 text-sm'>Please enter the password</p>}
+            {errors.password && errors.password.type === "minLength" && <p className='text-yellow-500 text-sm'>Password must be at least 8 characters</p>}
+          </div>
         <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" type="submit"> submit</button>
      
       </form>
