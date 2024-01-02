@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
  
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { PencilIcon, TrashIcon } from '@heroicons/react/24/solid';
+
  
  
 type Student = {
@@ -89,12 +89,12 @@ const handleEdit =(e:any, id:any) => {
                      <td className="px-4 py-4 whitespace-nowrap">{d.course}</td>
                     <div className="flex">
                     <button  className="mr-4 bg-green-700 text-white px-2 py-2 rounded" onClick={(e)=> handleEdit(e, d._id)}>
-                    <PencilIcon className="w-3 h-3" />
+                    <h3 className="w-3 h-3"> edit </h3>
                     </button>
                       <button
                         onClick={() => handleDeleteSubmit(d._id)}
                         className="mr-4 bg-red-700 text-white px-2 py-2 rounded"
-                      > <TrashIcon className="w-3 h-3" />
+                      > <h3 className="w-3 h-3"> delete </h3> 
                       </button>
                     </div>
                   </tr>
