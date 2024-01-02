@@ -70,6 +70,7 @@ const handleEdit =(e:any, id:any) => {
       <div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <table className="min-w-full divide-y divide-gray-100">
+          
             <thead>
               <tr>
                
@@ -82,7 +83,7 @@ const handleEdit =(e:any, id:any) => {
               </tr>
 
             </thead>
-            
+
             <tbody>
               {Array.isArray(Student) &&
                 Student.map((d, index) => (
