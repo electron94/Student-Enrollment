@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
  
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
+ 
  
  
 type Student = {
@@ -72,11 +72,15 @@ const handleEdit =(e:any, id:any) => {
         <table className="min-w-full divide-y divide-gray-100">
             <thead>
               <tr>
+               
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rollno</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Course</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Password</th>
               </tr>
+
             </thead>
             <tbody>
               {Array.isArray(Student) &&
@@ -87,6 +91,7 @@ const handleEdit =(e:any, id:any) => {
                      <td className="px-4 py-4 whitespace-nowrap">{d.email}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.phone}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.course}</td>
+                     <td className="px-4 py-4 whitespace-nowrap">{d.password}</td>
                     <div className="flex">
                     <button  className="mr-4 bg-green-700 text-white px-2 py-2 rounded" onClick={(e)=> handleEdit(e, d._id)}>
                     <h3 className="w-3 h-3"> edit </h3>
@@ -94,7 +99,7 @@ const handleEdit =(e:any, id:any) => {
                       <button
                         onClick={() => handleDeleteSubmit(d._id)}
                         className="mr-4 bg-red-700 text-white px-2 py-2 rounded"
-                      > <h3 className="w-3 h-3"> delete </h3> 
+                      > <h3 className="w-3 h-3"> delete </h3>
                       </button>
                     </div>
                   </tr>
@@ -107,4 +112,3 @@ const handleEdit =(e:any, id:any) => {
 };
  
 export default App;
- 
