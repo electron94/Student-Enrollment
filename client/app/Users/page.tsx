@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import {useForm} from 'react-hook-form'
+import {useForm} from 'react-hook-form';
 
 
 const EnrollmentForm: React.FC = () => {
@@ -30,10 +30,28 @@ const EnrollmentForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Submitted Data:', studentData);
-    // Add logic to submit data to backend or perform further actions
+  
+    try {
+      const response = await fetch('http://localhost:3004/student/store', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(studentData),
+      });
+  
+      if (response.ok) {
+        console.log('Data saved successfully');
+        alert("data submitted successfully");
+        // Add any other logic you need after successful submission
+      } else {
+        console.error('Error saving data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error saving data:', error.message);
+    }
   };
 
   return (
