@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
 
@@ -15,7 +16,7 @@ const EnrollmentForm: React.FC = () => {
     phone:'',
   });
 
-  
+  const router = useRouter()
   const handleCourseChange = (e:any) => {
 
     setSelectedCourse(e.target.value);
@@ -47,6 +48,7 @@ const EnrollmentForm: React.FC = () => {
       if (response.ok) {
         console.log('Data saved successfully');
         alert("data submitted successfully");
+        router.push('/')
         // Add any other logic you need after successful submission
       } else {
         console.error('Error saving data:', response.statusText);
