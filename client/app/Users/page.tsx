@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
-
+import Link from 'next/link';
 
 const EnrollmentForm: React.FC = () => {
     const[isModified,setIsModified]=useState<undefined | string>(undefined);
@@ -163,6 +163,7 @@ const EnrollmentForm: React.FC = () => {
             {errors.password && errors.password.type === "minLength" && <p className='text-yellow-500 text-sm'>Password must be at least 8 characters</p>}
           </div>
         <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" type="submit"> submit</button>
+        <Link href={'/.'} className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4">Cancel</Link>
      
       </form>
     </div>
