@@ -95,13 +95,13 @@ const handleEdit =(e:any, id:any) => {
                      <td className="px-4 py-4 whitespace-nowrap">{d.course}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.password}</td>
                     <div className="flex">
-                    <button  className="mr-4 bg-green-700 text-white px-2 py-2 rounded" onClick={(e)=> handleEdit(e, d._id)}>
-                    <h3 className="w-3 h-3"> edit </h3>
+                    <button  className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" onClick={(e)=> handleEdit(e, d._id)}>
+                     edit 
                     </button>
                       <button
                         onClick={() => handleDeleteSubmit(d._id)}
-                        className="mr-4 bg-red-700 text-white px-2 py-2 rounded"
-                      > <h3 className="w-3 h-3"> delete </h3>
+                        className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4"
+                      > delete
                       </button>
                     </div>
                   </tr>
