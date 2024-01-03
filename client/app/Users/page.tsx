@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form';
 import Link from 'next/link';
 
 const EnrollmentForm: React.FC = () => {
-    const[isModified,setIsModified]=useState<undefined | string>(undefined);
+    const[isModified, setIsModified]=useState<undefined | string>(undefined);
     const [selectedCourse, setSelectedCourse] = useState('');
   const [studentData, setStudentData] = useState({
     Rollno:'',
@@ -17,11 +17,16 @@ const EnrollmentForm: React.FC = () => {
   });
 
   const router = useRouter()
-  const handleCourseChange = (e:any) => {
-
+  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log("Selected Course:", e.target.value);
     setSelectedCourse(e.target.value);
+    setStudentData({
+      ...studentData,
+      course: e.target.value, // Add this line to set the selected course in the studentData state
+    });
   };
-
+  
+  
   const{register,trigger,formState:{errors},setValue}=useForm();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,14 +119,13 @@ const EnrollmentForm: React.FC = () => {
         </div>
         <div>          
             <label htmlFor="course"> Course:</label>         
-             <select id="course" name="course" value={selectedCourse} onChange={handleCourseChange}>    
-             <option value="">Select..</option>     
-                  <option value="sql">Sql</option>      
-                        <option value="python">python</option>        
-                            <option value="c">c</option>     
-                                   <option value="java">java</option>  
-
-            </select>    
+            <select id="course" name="course" value={selectedCourse} onChange={handleCourseChange}>
+                <option value="">Select..</option>
+                <option value="sql">Sql</option>
+                <option value="python">python</option>
+                <option value="c">c</option>
+                <option value="java">java</option>
+            </select>
        </div> 
         <div className='form-group mb-3 p-2'>
           <label htmlFor="phone"  className='text-sm font-medium text-grey-700'>phone:</label>
