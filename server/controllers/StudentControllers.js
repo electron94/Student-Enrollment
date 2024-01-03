@@ -53,7 +53,7 @@ const store= (req,res,next)=>{
     //update an employee
  
     const update = (req,res,next)=>{
-        let UserID = req.body.UserID
+        let StudentID = req.body.StudentID
         let updatedData ={
                 Rollno:req.body.Rollno,
                 name: req.body.name,
@@ -62,7 +62,7 @@ const store= (req,res,next)=>{
                 phone: req.body.phone,
                 password:req.body.password
         }
-        User.findByIdAndUpdate(UserID, {$set: updatedData})
+        Student.findByIdAndUpdate(StudentID, {$set: updatedData})
         .then(()=>{
             res.json({
                 message:'User updated successfully'
