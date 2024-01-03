@@ -1,39 +1,3 @@
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const bodyParser = require('body-parser');
-// const morgan = require('morgan')
-// const cors = require('cors')
-
-// const app = express();
-// const PORT = process.env.PORT || 3001;
-// 
-
-// // MongoDB connection
-// mongoose.connect('mongodb://localhost:27017/student-enrollment', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// // Define Student schema
-// // const studentSchema = new mongoose.Schema({
-// //   Rollno: String,
-// //   name: String,
-// //   email: String,
-// //   course: String,
-// //   phone: String,
-// // });
-
-// // const Student = mongoose.model('Student', studentSchema);
-
-// // Middleware
-// app.use(bodyParser.json());
-
-// 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// });
-// app.use('/student',StudentRoute)
-
 
 const express  =require('express')
 const mongoose  =require('mongoose')
