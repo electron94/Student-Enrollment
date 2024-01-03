@@ -14,6 +14,7 @@ const View = () => {
     phone: string;
     email: string;
     course:string;
+    password:string
   }
   const [selectedCourse, setSelectedCourse] = useState('');
   const [studentData,setstudentData]=useState('');
@@ -23,6 +24,7 @@ const View = () => {
       phone: '',
       email: '',
       course:'',
+      password:''
     });
  
     const handleCourseChange = (e:any) => {
@@ -124,6 +126,21 @@ const View = () => {
              {errors.phone&&errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
               {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
+        <div className='form-group mb-3 p-2'>
+          <label htmlFor="password"  className='text-sm font-medium text-grey-700'>password:</label>
+          <input className='w-full border rounded p-2'
+            {...register("password", { required: true}) }
+            type="text"
+            id="password"
+            name="password"
+            onBlur={() => trigger("password")}
+            value={studentData.password}
+         
+          />
+             {errors.password&&errors.password && errors.password.type==="required"&&<p className='text-red-500 text-sm'>please enter password</p>}
+             
+        </div>
+ 
  
         </form>
       </div>
