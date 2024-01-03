@@ -140,6 +140,7 @@ const View = () => {
              {errors.password&&errors.password && errors.password.type==="required"&&<p className='text-red-500 text-sm'>please enter password</p>}
              
         </div>
+        
  
  
         </form>
