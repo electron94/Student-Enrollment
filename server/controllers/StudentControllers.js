@@ -91,8 +91,27 @@ const destroy =(req,res,next)=>{
         })
     })
 }
+const authenticate = (req, res) => {
+    const { email, password } = req.body;
+   
+    // Check the email and password against your database
+    Student.findOne({ email, password })
+      .then(student => {
+        if (student) {
+          // In a real-world scenario, you'd generate a JWT token and return it to the client
+          // For simplicity, we're returning a plain object here
+          res.json({ token: 'your_generated_token' });
+        } else {
+          res.status(401).json({ error: 'Authentication failed' });
+        }
+      })
+      .catch(error => {
+        res.status(500).json({ error: 'An error occurred' });
+      });
+  };
  
 module.exports={
-    index,show,store,update,destroy
-}
+    index,show,store,update,destroy,authenticate
+} 
+
  
