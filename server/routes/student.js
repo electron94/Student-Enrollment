@@ -7,6 +7,7 @@ router.post('/show', StudentController.show);
 router.post('/store',StudentController.store);
 router.post('/update',StudentController.update);
 router.post('/delete',StudentController.destroy);
+router.post('/authenticate', StudentController.authenticate);
  
 
 module.exports = router
