@@ -54,6 +54,7 @@ function Login() {
           <div className="form-group mb-3 p-2">
             <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
             <input
+            
               type="email"
               className={`w-full border rounded p-2 ${errors.email && errors.email.type === "required" ? "border-red-500" : "border-gray-300"}`}
               placeholder="Enter email"
