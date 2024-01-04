@@ -14,6 +14,7 @@ const EnrollmentForm: React.FC = () => {
     email: '',
     course: '',
     phone:'',
+    password:''
   });
 
   const router = useRouter()
@@ -73,14 +74,27 @@ const EnrollmentForm: React.FC = () => {
           <input className='w-full border rounded p-2' 
             type="number"
             id="Rollno"
-            name="Rollno"
+            
+            {...register("Rollno", {required: true}  ) }
+            onBlur={() => trigger("Rollno")}
             value={studentData.Rollno}
-            onChange={handleChange}
-            required
+            onChange={(e) =>{
+             
+              setStudentData(prevData => ({ ...prevData, Rollno: e.target.value }));
+             setValue("Rollno",e.target.value);
+              trigger('Rollno');
+              setIsModified(true);          
+             }}
           />
+           {errors.Rollno && errors.Rollno.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the Rollno</p>}
         </div>
 
         <div className='form-group mb-3 p-2'>
+
+
+
+
+
           <label htmlFor="name"  className='text-sm font-medium text-grey-700'>Name:</label>
           <input className={`w-full border rounded p-2 ${errors.name && errors.name.type === "required" ? "border-red-500" : "border-gray-300"}`} type='text' id='name'
             {...register("name", {required: true, minLength: 4}  ) }

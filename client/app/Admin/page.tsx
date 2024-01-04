@@ -14,6 +14,7 @@ type Student = {
   email: string;
   phone: string;
   course: string;
+  password:string
  
 };
  
@@ -73,7 +74,7 @@ const App: React.FC = () => {
           
             <thead>
               <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Id</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rollno</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>

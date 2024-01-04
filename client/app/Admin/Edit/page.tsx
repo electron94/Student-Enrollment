@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
+import {useForm} from 'react-hook-form';
  
  
 const Edit = () => {
@@ -10,6 +11,8 @@ const Edit = () => {
  
   const [student, setStudent] = useState<any>({
   });
+  const[IsModified,setIsModified]=useState('');
+  const{register,trigger,formState:{errors},setValue}=useForm();
   const router = useRouter();
   const{id} = useParams();
   
@@ -19,6 +22,7 @@ const Edit = () => {
     console.log(userId)
   }, []);
  
+  
  
   useEffect(() => {
     const fetchData = async () => {
@@ -93,28 +97,56 @@ axios.post('http://localhost:3004/student/update', body)
            <input className={'w-full border rounded p-2 $ {errors.rollno && errors.rollno.type==="required" ? "border-red-500" : "border-gray-300"}'}
             type='text'
             placeholder='enter the Rollno'
-            value={student.rollno}
-            onChange={(e) => setStudent({ ...student, rollno:e.target.value} )}
+            {...register("Rollno", {required: true}  ) }
+            onBlur={() => trigger("Rollno")}
+           
+            value={student.Rollno}
+            onChange={(e) =>{ setStudent({ ...student, Rollno:e.target.value} );
+              setValue("Rollno",e.target.value);
+              trigger("Rollno");
+              setIsModified(true);
+              }}
             />
+            {errors.Rollno && errors.Rollno.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the Rollno</p>}
         </div>
         <div className='form-group mb-3 p-2'>
            <label htmlFor='name' className="text-sm font-medium text-gray-700">Name:</label>
            <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
+             {...register("name", {required: true, minLength: 4}  ) }
+             onBlur={() => trigger("name")}
+            
             type='text'
             placeholder='enter the name'
             value={student.name}
-            onChange={(e) => setStudent({ ...student, name:e.target.value} )}
+            onChange={(e) =>{ setStudent({ ...student, name:e.target.value} );
+              setValue("name",e.target.value);
+              trigger("name");
+              setIsModified(true);
+              }}
             />
+             {errors.name && errors.name.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the name</p>}
+            {errors.name && errors.name.type === "minLength" && <p className='text-yellow-500 text-sm'>Please enter at least 4 characters</p>}
         </div>
         <div className='form-group mb-3 p-2'>
             <label htmlFor='email'  className="text-sm font-medium text-gray-700">Email:</label>
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
+              {...register("email", { required: true,pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}}) }
+                onBlur={() => trigger("email")}
+             
              type='email'
              placeholder='enter the email'
              value={student.email}
-             onChange={(e) => setStudent({ ...student, email: e.target.value })}
+             onChange={(e) =>{
+              setStudent(prevData => ({ ...prevData, email: e.target.value }));
+          setValue("email",e.target.value);
+          trigger('email');
+          setIsModified(true);
+          }}
            
             />
+             {errors.email && errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
+              {errors.email && errors.email.type==="pattern" && <p className='text-yellow-500 text-sm'>please enter valid email</p>}
         </div>
         <div className='form-group mb-3 p-2'>
             <label htmlFor='course'  className="text-sm font-medium text-gray-700">course:</label>
@@ -130,11 +162,21 @@ axios.post('http://localhost:3004/student/update', body)
         <div className='form-group mb-3 p-2'>
             <label htmlFor='phone' className="text-sm font-medium text-gray-700">Phone:</label>
             <input className={'w-full border rounded p-2 $ {errors.phone && errors.phone.type==="required" ? "border-red-500" : "border-gray-300"}'}
+              {...register("phone", { required: true,pattern:{value:/^[0-9]{10}$/ }}) }
+              onBlur={() => trigger("phone")}
              type='number'
              placeholder='enter the phone'
              value={student.phone}
-             onChange={(e) => setStudent({ ...student, age: e.target.value })}
+             onChange={(e) =>{
+             
+              setStudent(prevData => ({ ...prevData, phone: e.target.value }));
+             setValue("phone",e.target.value);
+              trigger('phone');
+              setIsModified(true);          
+             }}
             />
+              {errors.phone&&errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
+              {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
  
         <div className='form-group mb-3 p-2'>
@@ -143,12 +185,21 @@ axios.post('http://localhost:3004/student/update', body)
              type='text'
              placeholder='enter the password'
              value={student.password}
-             onChange={(e) => setStudent({ ...student, password: e.target.value })}
+             {...register("password", { required: true, minLength: 8 })}
+              onBlur={() => trigger("password")}
+              onChange={(e) => {
+                setStudent({ ...student, password: e.target.value });
+                setValue("password", e.target.value);
+                trigger("password");
+                setIsModified(true);
+              }}
            
             />
+             {errors.password && errors.password.type === "required" && <p className='text-red-500 text-sm'>Please enter the password</p>}
+            {errors.password && errors.password.type === "minLength" && <p className='text-yellow-500 text-sm'>Password must be at least 8 characters</p>}
         </div>
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Update</button>
-        <Link href='/' className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Cancel</Link>
+        <Link href='/' className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3" >Cancel</Link>
      </form>
     </div>
    </div>
@@ -157,3 +208,5 @@ axios.post('http://localhost:3004/student/update', body)
 }
  
 export default Edit
+
+
