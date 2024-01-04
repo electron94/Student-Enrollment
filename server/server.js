@@ -26,21 +26,6 @@ app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
-// Route to handle student enrollment
-app.post('/store', async (req, res) => {
-  const studentData = req.body;
-
-  try {
-    // Create a new student instance and save it to the database
-    const newStudent = new Student(studentData);
-    await newStudent.save();
-
-    res.json({ success: true, message: 'Student enrolled successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
-  }
-});
 
  
 const   PORT =process.env.PORT || 3004;
