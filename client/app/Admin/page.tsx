@@ -25,9 +25,9 @@ const App: React.FC = () => {
  
   };
  
-  const addStudent = (employee: {}) => {
-    setStudent([...Student, Student]);
-  };
+  // const addStudent = (employee: {}) => {
+  //   setStudent([...Student, Student]);
+  // };
  
   useEffect(() => {
     axios
@@ -44,11 +44,12 @@ const App: React.FC = () => {
   const handleDeleteSubmit = (id:any) => {
     console.log('deleting employee with ID:',id);
     const body :any={
-      employeeID: id
+      studentID : id
     }
-    axios.post('http://localhost:3004/api/employee/delete',body)
+    axios.post('http://localhost:3004/student/delete',body)
       .then(res => {
         console.log(res);
+        alert("deleted successfully");
        
       })
       .catch(err=> console.log(err));
@@ -56,15 +57,12 @@ const App: React.FC = () => {
   }
  
  
-const handleEdit =(e:any, id:any) => {
-  e.preventDefault()
-  let userId: any = id;
-  localStorage.setItem("UserId", userId);
-  router.push(`/components/addContacts/editContacts?id=${id}`)
-}
- 
- 
- 
+  const handleEdit =(e:any, id:any) => {
+    e.preventDefault()
+    let userId: any = id;
+    localStorage.setItem("UserId", userId);
+    router.push(`/Admin/Edit?id=${id}`)
+  }
   return (
    
       <div>
@@ -95,13 +93,13 @@ const handleEdit =(e:any, id:any) => {
                      <td className="px-4 py-4 whitespace-nowrap">{d.course}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.password}</td>
                     <div className="flex">
-                    <button  className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" onClick={(e)=> handleEdit(e, d._id)}>
+                    <button  className="mr-4 bg-green-700 text-white px-2 py-2 rounded" onClick={(e)=> handleEdit(e, d._id)}>
                      edit 
                     </button>
                       <button
                         onClick={() => handleDeleteSubmit(d._id)}
-                        className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4"
-                      > delete
+                        className="mr-4 bg-red-700 text-white px-2 py-2 rounded"
+                      > delete 
                       </button>
                     </div>
                   </tr>
@@ -114,3 +112,5 @@ const handleEdit =(e:any, id:any) => {
 };
  
 export default App;
+
+
