@@ -62,7 +62,7 @@ if (!userId) {
   }
  
 const body = {
-    studentID: userId,
+    StudentID: userId,
     Rollno: student.rollno,
     name: student.name,
     email: student.email,
