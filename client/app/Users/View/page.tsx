@@ -41,6 +41,7 @@ const view = () => {
     fetchData();
   }, []);
  
+  
  
 useEffect(() => {
 let studentid:any=localStorage.getItem("studentID")
