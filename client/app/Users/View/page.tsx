@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
  
  
 const view = () => {
@@ -9,7 +10,6 @@ const view = () => {
  
   const [student, setStudent] = useState<any>({
   });
-  const router = useRouter();
   const{id} = useParams();
  
  
@@ -42,50 +42,19 @@ const view = () => {
   }, []);
  
  
- 
- 
 useEffect(() => {
 let studentid:any=localStorage.getItem("studentID")
 console.log("jgkkjj",studentid
 )
 }, []);
- 
-const handleUpdate = (e: { preventDefault: () => void; }) => {
-e.preventDefault();
-console.log('Updating with student data:', student);
- 
- 
-let userId = localStorage.getItem("UserId");
-if (!userId) {
-    console.error('User ID not found in localStorage.');
-    return;
-  }
- 
-const body = {
-    StudentID: userId,
-    Rollno: student.rollno,
-    name: student.name,
-    email: student.email,
-    course: student.course,
-    phone: student.phone,
-    password: student.password
-  }
- 
-console.log('Update request body:', body);
-axios.post('http://localhost:3004/student/update', body)
-  .then(result => {
-    console.log('Update result:', result);
-    router.push('/');
-  })
-  .catch(err => console.error('Error updating student:', err));
-}
+
  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
     <div className='d-flex w-100 vh-100 justify-contect-center align-items-center'>
     <div className='w-50 border bg-light p-5'>
      <h2 className='text-center mb-4'>View User</h2>
-     <form onSubmit={handleUpdate} className='bg-white rounded p-4 w-120 shadow-md'>    
+     <form  className='bg-white rounded p-4 w-120 shadow-md'>    
  
      <div className='form-group mb-3 p-2'>
            <label htmlFor='Rollno' className="text-sm font-medium text-gray-700">Rollno:</label>
@@ -146,7 +115,7 @@ axios.post('http://localhost:3004/student/update', body)
            
             />
         </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Update</button>
+        <Link href='/Users/Login' className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Cancel</Link>
      </form>
     </div>
    </div>
