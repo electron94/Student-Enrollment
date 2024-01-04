@@ -51,29 +51,36 @@ const store= (req,res,next)=>{
     })
 }
     //update an employee
- 
-    const update = (req,res,next)=>{
-        let StudentID = req.body.StudentID
-        let updatedData ={
-                Rollno:req.body.Rollno,
-                name: req.body.name,
-                email: req.body.email,
-                course:req.body.course,
-                phone: req.body.phone,
-                password:req.body.password
-        }
-        Student.findByIdAndUpdate(StudentID, {$set: updatedData})
-        .then(()=>{
-            res.json({
-                message:'User updated successfully'
+    const update = (req, res, next) => {
+        let StudentID = req.body.StudentID;
+        let updatedData = {
+            Rollno: req.body.Rollno,
+            name: req.body.name,
+            email: req.body.email,
+            course: req.body.course,
+            phone: req.body.phone,
+            password: req.body.password
+        };
+    
+        Student.findByIdAndUpdate(StudentID, { $set: updatedData }, { new: true })
+            .then((updatedStudent) => {
+                if (!updatedStudent) {
+                    return res.status(404).json({
+                        message: 'User not found'
+                    });
+                }
+                res.json({
+                    message: 'User updated successfully',
+                    data: updatedStudent
+                });
             })
-        })
-        .catch(error=>{
-            res.json({
-                message:'an error occured '
-            })
-        })
-    }
+            .catch((error) => {
+                res.status(500).json({
+                    message: 'An error occurred'
+                });
+            });
+    };
+    
 //delete an employee
  
 const destroy =(req,res,next)=>{
