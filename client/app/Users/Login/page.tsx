@@ -73,12 +73,14 @@ function Login() {
             />
             {errors.password && errors.password.type === "required" && <p className="text-red-500 text-sm">Please enter the password</p>}
           </div>
+          <div className="flex gap-4">
           <input
             type="submit"
             className="bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer"
             value="Login"
           />
-
+          <Link href='/' className="bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
+          </div>
         </form>
       </div>
     </main>
