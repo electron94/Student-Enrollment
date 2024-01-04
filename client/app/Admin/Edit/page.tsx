@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
  
  
 const Edit = () => {
@@ -75,7 +76,7 @@ console.log('Update request body:', body);
 axios.post('http://localhost:3004/student/update', body)
   .then(result => {
     console.log('Update result:', result);
-    router.push('/');
+    router.push('/Admin');
   })
   .catch(err => console.error('Error updating student:', err));
 }
@@ -147,6 +148,7 @@ axios.post('http://localhost:3004/student/update', body)
             />
         </div>
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Update</button>
+        <Link href='/' className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Cancel</Link>
      </form>
     </div>
    </div>
