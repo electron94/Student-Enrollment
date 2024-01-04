@@ -1,4 +1,3 @@
- 
 "use client"
  
  
@@ -7,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/navigation';
 import { authenticateUser } from "@/app/auth/page";
 import Link from "next/link";
-
+ 
  
 interface FormData {
   email: string;
@@ -43,14 +42,13 @@ function Login() {
  
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      
-      <h1 className="text-center pt-3 text-secondary">Login Form</h1>
+      <div className='w-50 border bg-light p-5'>
+      <h2 className='text-center mb-4 font-bold text-blue-800'>UserLogin</h2>
       <div className="row mt-5">
         <form className="bg-white rounded p-4 shadow-md" onSubmit={handleSubmit(handleLogin)}>
           <div className="form-group mb-3 p-2">
             <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
             <input
-            
               type="email"
               className={`w-full border rounded p-2 ${errors.email && errors.email.type === "required" ? "border-red-500" : "border-gray-300"}`}
               placeholder="Enter email"
@@ -73,15 +71,14 @@ function Login() {
           <div className="flex gap-4">
           <input
             type="submit"
-            className="bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer"
+            className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer"
             value="Login"
           />
-          <Link href='/' className="bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
-          <Link href="/Users">
-         <button className="  justify-between bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2" style={{ marginLeft: '40px' }} >User SignUp</button>
-         </Link>
-          </div>
+          <Link href='/' className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
+          <Link className="bg-green text-red p-2" href={"/Users"} style={{ textDecoration: 'underline' }}>you don't have account ?</Link>
+         </div>
         </form>
+      </div>
       </div>
     </main>
   );
