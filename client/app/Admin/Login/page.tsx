@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
- 
+ import Link from 'next/link'; 
 interface FormData {
   Email: string;
   password: string;
@@ -64,12 +64,15 @@ function Login() {
               <p className="text-red-500 text-sm">Invalid email or password</p>
             )}
           </div>
+          <div className="flex gap-4">
           <input
             type="submit"
             className={`bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer ${loginStatus === 'invalid' ? 'cursor-not-allowed opacity-50' : ''}`}
             value="Login"
             disabled={loginStatus === 'invalid'}
           />
+          <Link href='/' className="bg-blue-500 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
+          </div>
         </form>
       </div>
     </main>
