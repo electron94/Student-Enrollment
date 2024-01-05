@@ -9,7 +9,7 @@
 //     const[isModified, setIsModified]=useState<undefined | string>(undefined);
 //     const [selectedCourse, setSelectedCourse] = useState('');
 //   const [studentData, setStudentData] = useState({
-//     Rollno:'',
+//     rollno:'',
 //     name: '',
 //     email: '',
 //     course: '',
@@ -70,23 +70,23 @@
 //       <h1><b>Student Enrollment Form</b></h1>
 //       <form onSubmit={handleSubmit} className='bg-white rounded p-4 w-120 shadow-md'>
 //       <div className='form-group mb-3 p-2'>
-//           <label htmlFor="Rollno" className='text-sm font-medium text-grey-700'>Rollno:</label>
+//           <label htmlFor="rollno" className='text-sm font-medium text-grey-700'>rollno:</label>
 //           <input className='w-full border rounded p-2' 
 //             type="number"
-//             id="Rollno"
+//             id="rollno"
             
-//             {...register("Rollno", {required: true}  ) }
-//             onBlur={() => trigger("Rollno")}
-//             value={studentData.Rollno}
+//             {...register("rollno", {required: true}  ) }
+//             onBlur={() => trigger("rollno")}
+//             value={studentData.rollno}
 //             onChange={(e) =>{
              
-//               setStudentData(prevData => ({ ...prevData, Rollno: e.target.value }));
-//              setValue("Rollno",e.target.value);
-//               trigger('Rollno');
+//               setStudentData(prevData => ({ ...prevData, rollno: e.target.value }));
+//              setValue("rollno",e.target.value);
+//               trigger('rollno');
 //               setIsModified(true);          
 //              }}
 //           />
-//            {errors.Rollno && errors.Rollno.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the Rollno</p>}
+//            {errors.rollno && errors.Rollno.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the Rollno</p>}
 //         </div>
 
 //         <div className='form-group mb-3 p-2'>
@@ -198,21 +198,23 @@ import React, { useState } from 'react';
 import {useForm} from 'react-hook-form';
 import Link from 'next/link';
 
-const EnrollmentForm: React.FC = () => {
+const EnrollmentForm= () => {
     const[isModified, setIsModified]=useState<undefined | string>(undefined);
     const [selectedCourse, setSelectedCourse] = useState('');
     const [duplicateEmailError, setDuplicateEmailError] = useState<string | null>(null);
+    const[duplicateemail,setDuplicateEmail]=useState('');
    
     const [studentData, setStudentData] = useState({
-    Rollno:'',
+    
     name: '',
     email: '',
     course: '',
     phone:'',
+    password:''
   });
 
   const router = useRouter()
-  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCourseChange = (e:any) => {
     console.log("Selected Course:", e.target.value);
     setSelectedCourse(e.target.value);
     setStudentData({
@@ -224,23 +226,8 @@ const EnrollmentForm: React.FC = () => {
   
   const{register,trigger,formState:{errors},setValue}=useForm();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStudentData({
-      ...studentData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  
 
-  // const checkDuplicateEmail = async (email: string) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3004/student/checkDuplicateEmail?email=${email}`);
-  //     const data = await response.json();
-  //     return data.isDuplicate;
-  //   } catch (error) {
-  //     console.error('Error checking duplicate email:', error);
-  //     return false;
-  //   }
-  // };
   const checkDuplicateEmail = async (email: string) => {
     try {
       const response = await fetch(`http://localhost:3004/student/checkDuplicateEmail?email=${email}`);
@@ -259,7 +246,7 @@ const EnrollmentForm: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
   
     try {
@@ -270,6 +257,8 @@ const EnrollmentForm: React.FC = () => {
         },
         body: JSON.stringify(studentData),
       });
+
+      
   
       if (response.ok) {
         console.log('Data saved successfully');
@@ -289,17 +278,7 @@ const EnrollmentForm: React.FC = () => {
     <div className='w-50 border bg-light p-5'>
       <h1><b>Student Enrollment Form</b></h1>
       <form onSubmit={handleSubmit} className='bg-white rounded p-4 w-120 shadow-md'>
-      <div className='form-group mb-3 p-2'>
-          <label htmlFor="Rollno" className='text-sm font-medium text-grey-700'>Rollno:</label>
-          <input className='w-full border rounded p-2' 
-            type="number"
-            id="Rollno"
-            name="Rollno"
-            value={studentData.Rollno}
-            onChange={handleChange}
-            required
-          />
-        </div>
+     
 
         <div className='form-group mb-3 p-2'>
           <label htmlFor="name"  className='text-sm font-medium text-grey-700'>Name:</label>
@@ -335,28 +314,17 @@ const EnrollmentForm: React.FC = () => {
             setIsModified(true);
             }}
           />
-          {errors.email && errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
+            <div>
+              {duplicateemail &&(
+                <p className='text-red-500 text-sm'>
+                   <span style={{ color: 'red' }}>{duplicateemail}</span>
+                </p>
+              )}
+              </div>
+          {errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
               {errors.email && errors.email.type==="pattern" && <p className='text-yellow-500 text-sm'>please enter valid email</p>}
         </div>
-         {/* <div className="form-group mb-3 p-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              className={`w-full border rounded p-2 ${errors.email && errors.email.type === "required" ? "border-red-500" : "border-gray-300"}`}
-              placeholder="Enter email"
-              {...register("email", { required: true })}
-              onBlur={async () => {
-                await trigger("email");
-                if (!errors.email) {
-                  // If email is not empty and there are no validation errors, check for duplicate
-                  const isDuplicate = await checkDuplicateEmail(`trigger("email")`);
-                  setDuplicateEmailError(isDuplicate ? "Email is already registered" : null);
-                }
-              }}
-            />
-            {errors.email && errors.email.type === "required" && <p className="text-red-500 text-sm">Please enter the email</p>}
-            {duplicateEmailError && <p className="text-red-500 text-sm">{duplicateEmailError}</p>}
-          </div> */}
+        
         <div>          
             <label htmlFor="course"> Course:</label>         
             <select id="course" name="course" value={selectedCourse} onChange={handleCourseChange}>
@@ -384,7 +352,7 @@ const EnrollmentForm: React.FC = () => {
                 setIsModified(true);          
                }}
           />
-             {errors.phone&&errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
+             {errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
               {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
       

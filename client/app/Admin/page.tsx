@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 type Student = {
 
   id: number;
-  Rollno: string;
   name: string;
   email: string;
   phone: string;
@@ -18,7 +17,7 @@ type Student = {
  
 };
  
-const App: React.FC = () => {
+const App = () => {
   const router = useRouter();
  
   const [Student, setStudent] = useState<any>([]);
@@ -28,9 +27,7 @@ const App: React.FC = () => {
  
   };
  
-  // const addStudent = (employee: {}) => {
-  //   setStudent([...Student, Student]);
-  // };
+ 
  
   useEffect(() => {
     axios
@@ -75,7 +72,6 @@ const App: React.FC = () => {
             <thead>
               <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Id</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rollno</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
@@ -90,7 +86,6 @@ const App: React.FC = () => {
                 Student.map((d, index) => (
                   <tr key={index}>
                      <td className="px-4 py-4 whitespace-nowrap">{d._id}</td>
-                     <td className="px-4 py-4 whitespace-nowrap">{d.Rollno}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.name}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.email}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.phone}</td>

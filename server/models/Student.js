@@ -3,7 +3,7 @@ const mongoose  =require('mongoose')
 const Schema     =  mongoose.Schema
  
 const studentSchema = new Schema({
-    Rollno: String,
+   
     name: String,
     email: String,
     course: String,

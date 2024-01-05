@@ -68,7 +68,6 @@ if (!userId) {
  
 const body = {
     StudentID: userId,
-    Rollno: student.rollno,
     name: student.name,
     email: student.email,
     course: student.course,
@@ -92,23 +91,7 @@ axios.post('http://localhost:3004/student/update', body)
      <h2 className='text-center mb-4'>Edit User</h2>
      <form onSubmit={handleUpdate} className='bg-white rounded p-4 w-120 shadow-md'>    
  
-     <div className='form-group mb-3 p-2'>
-           <label htmlFor='Rollno' className="text-sm font-medium text-gray-700">Rollno:</label>
-           <input className={'w-full border rounded p-2 $ {errors.rollno && errors.rollno.type==="required" ? "border-red-500" : "border-gray-300"}'}
-            type='text'
-            placeholder='enter the Rollno'
-            {...register("Rollno", {required: true}  ) }
-            onBlur={() => trigger("Rollno")}
-           
-            value={student.Rollno}
-            onChange={(e) =>{ setStudent({ ...student, Rollno:e.target.value} );
-              setValue("Rollno",e.target.value);
-              trigger("Rollno");
-              setIsModified(true);
-              }}
-            />
-            {errors.Rollno && errors.Rollno.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the Rollno</p>}
-        </div>
+    
         <div className='form-group mb-3 p-2'>
            <label htmlFor='name' className="text-sm font-medium text-gray-700">Name:</label>
            <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
@@ -145,7 +128,7 @@ axios.post('http://localhost:3004/student/update', body)
           }}
            
             />
-             {errors.email && errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
+             {errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
               {errors.email && errors.email.type==="pattern" && <p className='text-yellow-500 text-sm'>please enter valid email</p>}
         </div>
         <div className='form-group mb-3 p-2'>
@@ -172,10 +155,12 @@ axios.post('http://localhost:3004/student/update', body)
               setStudent(prevData => ({ ...prevData, phone: e.target.value }));
              setValue("phone",e.target.value);
               trigger('phone');
+
+              
               setIsModified(true);          
              }}
             />
-              {errors.phone&&errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
+              {errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
               {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
  

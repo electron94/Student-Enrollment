@@ -28,31 +28,10 @@ const show =(req,res,next)=>{
         message:'an error occured'
     })
 }
- 
-// const store= (req,res,next)=>{
-//     let student = new Student({
-//         Rollno:req.body.Rollno,
-//         name: req.body.name,
-//         email: req.body.email,
-//         course:req.body.course,
-//         phone: req.body.phone,
-//         password:req.body.password
-//     })
-//     student.save()
-//     .then(response=>{
-//         res.json({
-//             message:'User added successfully'
-//         })
-//     })
-//     .catch(error=>{
-//         res.json({
-//             message:'an error occured'
-//         })
-//     })
-// }
+
 const store = (req, res, next) => {
     const newStudent = {
-        Rollno:req.body.Rollno,
+       
         name: req.body.name,
         email: req.body.email,
         course:req.body.course,
@@ -94,7 +73,7 @@ const store = (req, res, next) => {
     const update = (req, res, next) => {
         let StudentID = req.body.StudentID;
         let updatedData = {
-            Rollno: req.body.Rollno,
+           
             name: req.body.name,
             email: req.body.email,
             course: req.body.course,
@@ -120,39 +99,7 @@ const store = (req, res, next) => {
                 });
             });
     };
-    // const update = async (req, res) => {
-    //     try {
-    //         const { id } = req.params;
-    //         const { name, email } = req.body;
-    
-    //         const existingStudent = await Student.findOne({ email, _id: { $ne: id } });
-    
-    //         if (existingStudent) {
-    //             return res.json({
-    //                 message: 'Another student with this email already exists',
-    //             });
-    //         }
-    
-    //         const updatedStudent = await Student.findByIdAndUpdate(id, { name, email }, { new: true });
-    
-    //         if (!updatedStudent) {
-    //             return res.status(404).json({
-    //                 message: 'Student not found',
-    //             });
-    //         }
-    
-    //         res.json({
-    //             message: 'Student updated successfully',
-    //             student: updatedStudent,
-    //         });
-    //     } catch (error) {
-    //         res.status(500).json({
-    //             message: 'An error occurred while processing the request',
-    //         });
-    //     }
-    // };
-    
-    // module.exports = update;
+ 
 //delete an employee
  
 const destroy =(req,res,next)=>{
