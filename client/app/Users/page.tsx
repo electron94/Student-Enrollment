@@ -11,7 +11,8 @@ const EnrollmentForm= () => {
     const[isModified, setIsModified]=useState<undefined | string>(undefined);
     const [selectedCourse, setSelectedCourse] = useState('');
     const[duplicateemail,setDuplicateEmail]=useState('');
-    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+    const [isFormValid, setIsFormValid] = useState(false);
+   
 
    
     const [studentData, setStudentData] = useState({
@@ -26,16 +27,7 @@ const EnrollmentForm= () => {
   
 
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [course, setAge] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-
-  const updateSubmitButton = ()=>{
-    const isAnyFieldEmpty = !name||!email||!course||!phone||!password;
-    setIsSubmitDisabled(isAnyFieldEmpty);
-  }
+ 
 
   const handleCourseChange = (e:any) => {
     console.log("Selected Course:", e.target.value);
@@ -49,7 +41,9 @@ const EnrollmentForm= () => {
   
   const{register,trigger,formState:{errors,isValid},setValue}=useForm();
 
-  
+  useEffect(() => {
+    setIsFormValid(isValid);
+  }, [isValid]);
 
   const checkDuplicateEmail = async (email: string) => {
     try {
@@ -59,6 +53,7 @@ const EnrollmentForm= () => {
       if (data.isDuplicate) {
         // Show alert for duplicate email
         alert("Email is already registered");
+        setDuplicateEmail("Email is already registered");
         return true;
       }
   
@@ -99,10 +94,6 @@ const EnrollmentForm= () => {
   };
 
 
-  useEffect(()=>{
-    updateSubmitButton();
- 
-  },[name,email,course,phone,password]);
 
 
   return (
@@ -206,7 +197,12 @@ const EnrollmentForm= () => {
             {errors.password && errors.password.type === "required" && <p className='text-red-500 text-sm'>Please enter the password</p>}
             {errors.password && errors.password.type === "minLength" && <p className='text-yellow-500 text-sm'>Password must be at least 8 characters</p>}
           </div>
-        <button className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4" type="submit" disabled={!isValid}> submit</button>
+          <button
+            className={`bg-blue-500 hover:bg-blue-500 rounded-lg px-6 py-3 ${!isFormValid? 'disabled' : ''}`}
+            type="submit"
+            disabled={!isFormValid}>
+            Submit
+          </button>
         <Link href={'/.'} className="bg-blue-500 hover:bg-blue-600 rounded-lg px-4">Cancel</Link>
      
       </form>
