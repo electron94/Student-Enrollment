@@ -1,22 +1,9 @@
 "use client";
 import { useEffect, useState } from 'react';
- 
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
  
- 
- 
-type Student = {
 
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  course: string;
-  password:string
- 
-};
- 
 const App = () => {
   const router = useRouter();
  
@@ -27,8 +14,6 @@ const App = () => {
  
   };
  
- 
- 
   useEffect(() => {
     axios
       .get<any>('http://localhost:3004/student')
@@ -38,7 +23,6 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }, []);
- 
  
  
   const handleDeleteSubmit = (id:any) => {
@@ -53,8 +37,7 @@ const App = () => {
         setStudent((prevStudents:any) => prevStudents.filter((student:any) => student._id !== id));
        
       })
-      .catch(err=> console.log(err));
-       
+      .catch(err=> console.log(err));   
   }
  
  
@@ -64,6 +47,7 @@ const App = () => {
     localStorage.setItem("UserId", userId);
     router.push(`/Admin/Edit?id=${id}`)
   }
+  
   return (
    
       <div>
@@ -78,8 +62,8 @@ const App = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Course</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Password</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
-
             </thead>
 
             <tbody>
