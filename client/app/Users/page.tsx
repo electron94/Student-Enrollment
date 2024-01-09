@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form';
 import Link from 'next/link';
  
 const EnrollmentForm= () => {
-    const[isModified, setIsModified]=useState<undefined | string>(undefined);
+   
     const [selectedCourse, setSelectedCourse] = useState('');
     const[duplicateemail,setDuplicateEmail]=useState('');
     const [isFormValid, setIsFormValid] = useState(false);
@@ -23,11 +23,11 @@ const EnrollmentForm= () => {
     password:''
   });
  
-  interface MyResponse {
-  success: boolean;
-  message?: string;
-  // Add other properties if needed
-}
+//   interface MyResponse {
+//   success: boolean;
+//   message?: string;
+//   // Add other properties if needed
+// }
  
   const router = useRouter();
  
@@ -96,10 +96,10 @@ const EnrollmentForm= () => {
  
         // Add any other logic you need after successful submission
       } else {
-        console.error('Error saving data:', response.statusText);
+        console.error('Error saving data:', response);
       }})
     } catch (error) {
-      console.error('Error saving data:', error.message);
+      console.error('Error saving data:', error);
     }
   };
  
@@ -120,10 +120,9 @@ const EnrollmentForm= () => {
              onBlur={() => trigger("name")}
              onChange={(e) =>{
                 const trimmedValue=e.target.value.replace(/[^A-Za-z]/gi,'');
-                setStudentData({name:trimmedValue});
+                setStudentData(prevData => ({ ...prevData, name: e.target.value }));
               setValue("name", trimmedValue);
               trigger("name");
-              setIsModified(true);
             }}
              />
              {errors.name && errors.name.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the name</p>}
@@ -134,7 +133,8 @@ const EnrollmentForm= () => {
           <label htmlFor="email"  className='text-sm font-medium text-grey-700'>Email:</label>
           <input className='w-full border rounded p-2'
              {...register("email", { required: true,pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}}) }
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Please enter a valid email address",}}) }
                 onBlur={() => trigger("email")}
             type="email"
             id="email"
@@ -144,9 +144,7 @@ const EnrollmentForm= () => {
                 setStudentData(prevData => ({ ...prevData, email: e.target.value }));
             setValue("email",e.target.value);
             trigger('email');
-            setIsModified(true);
-            }}
-          />
+            }} />
             <div>
               {selectmessage &&(
                 <p className='text-red-500 text-sm'>
@@ -171,7 +169,8 @@ const EnrollmentForm= () => {
         <div className='form-group mb-3 p-2'>
           <label htmlFor="phone"  className='text-sm font-medium text-grey-700'>phone:</label>
           <input className='w-full border rounded p-2'
-            {...register("phone", { required: true,pattern:{value:/^[0-9]{10}$/ }}) }
+            {...register("phone", { required: true, pattern:{value:/^[0-9]{10}$/,
+            message: "Please enter a valid phone number" }}) }
             type="number"
             id="phone"
             name="phone"
@@ -181,8 +180,7 @@ const EnrollmentForm= () => {
              
                 setStudentData(prevData => ({ ...prevData, phone: e.target.value }));
                setValue("phone",e.target.value);
-                trigger('phone');
-                setIsModified(true);          
+                trigger('phone');     
                }}
           />
              {errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
@@ -201,9 +199,7 @@ const EnrollmentForm= () => {
                 setStudentData({ ...studentData, password: e.target.value });
                 setValue("password", e.target.value);
                 trigger("password");
-                setIsModified(true);
-              }}
-            />
+              }}/>
             {errors.password && errors.password.type === "required" && <p className='text-red-500 text-sm'>Please enter the password</p>}
             {errors.password && errors.password.type === "minLength" && <p className='text-red-500 text-sm'>Password must be at least 8 characters</p>}
           </div>
@@ -214,7 +210,6 @@ const EnrollmentForm= () => {
             Submit
           </button>
         <Link href={'/.'} className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Cancel</Link>
-     
       </form>
     </div>
     </main>
