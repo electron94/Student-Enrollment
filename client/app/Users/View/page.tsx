@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
  
@@ -10,9 +9,6 @@ const view = () => {
  
   const [student, setStudent] = useState<any>({
   });
-  const router = useRouter();
-  const{id} = useParams();
- 
  
   useEffect(() => {
     let userId:any=localStorage.getItem("UserId")
@@ -64,57 +60,41 @@ const view = () => {
     <div className='w-50 border bg-light p-5'>
      <h2 className='text-center mb-4'>View User</h2>
      <form  className='bg-white rounded p-4 w-120 shadow-md'>    
- 
-   
+
         <div className='form-group mb-3 p-2'>
            <label htmlFor='name' className="text-sm font-medium text-gray-700">Name:</label>
            <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
             type='text'
             placeholder='enter the name'
-            value={student?.name}
-           
-            />
+            value={student?.name}/>
         </div>
         <div className='form-group mb-3 p-2'>
             <label htmlFor='email'  className="text-sm font-medium text-gray-700">Email:</label>
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='email'
              placeholder='enter the email'
-             value={student?.email}
-            
-           
-            />
+             value={student?.email} />
         </div>
         <div className='form-group mb-3 p-2'>
             <label htmlFor='course'  className="text-sm font-medium text-gray-700">course:</label>
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='text'
              placeholder='select the course'
-             value={student?.course}
-           
-           
-            />
+             value={student?.course} />
         </div>
-       
         <div className='form-group mb-3 p-2'>
             <label htmlFor='phone' className="text-sm font-medium text-gray-700">Phone:</label>
             <input className={'w-full border rounded p-2 $ {errors.phone && errors.phone.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='number'
              placeholder='enter the phone'
-             value={student?.phone}
-            
-            />
+             value={student?.phone} />
         </div>
- 
         <div className='form-group mb-3 p-2'>
             <label htmlFor='password'  className="text-sm font-medium text-gray-700">password:</label>
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='text'
              placeholder='enter the password'
-             value={student?.password}
-            
-           
-            />
+             value={student?.password}/>
         </div>
         <Link href='/' className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
      </form>
