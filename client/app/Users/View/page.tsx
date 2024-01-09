@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
  
  
 const view = () => {
@@ -22,24 +23,42 @@ const view = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let userId = localStorage.getItem("UserId");
-        const body = {
-          studentID: userId
+        let userIdString = localStorage.getItem("userDetails");
+        if (userIdString !== null) {
+          try {
+            let userId = JSON.parse(userIdString);
+    
+            // Check if userId has the _id property
+            if (userId && typeof userId._id === 'string') {
+              let id: string = userId._id;
+              console.log("userId", userId._id);
+  
+              const body = {
+                studentID: id
+              };
+  
+              const response = await axios.post<any>('http://localhost:3004/student/show', body);
+  
+              const userDetails = response.data;
+              setStudent(userDetails.response);
+  
+              console.log('userDetails:', userDetails);
+            }
+          } catch (err) {
+            console.error('Error parsing user details or fetching student data:', err);
+          }
+        } else {
+          console.error("User details not found in localStorage.");
         }
-       
-        const response = await axios.post<any>('http://localhost:3004/student/show', body);
-       
-        const studentData = (response.data)
-        setStudent(studentData.response);
- 
-        console.log('Student Data:', studentData);
-      } catch (err) {
-        console.error('Error fetching student data:', err);
+      } catch (error) {
+        console.error("Outer try block error:", error);
       }
     };
- 
+  
     fetchData();
   }, []);
+  
+  
  
  
  
@@ -63,7 +82,6 @@ if (!userId) {
  
 const body = {
     StudentID: userId,
-    Rollno: student.rollno,
     name: student.name,
     email: student.email,
     course: student.course,
@@ -87,21 +105,13 @@ axios.post('http://localhost:3004/student/update', body)
      <h2 className='text-center mb-4'>View User</h2>
      <form onSubmit={handleUpdate} className='bg-white rounded p-4 w-120 shadow-md'>    
  
-     <div className='form-group mb-3 p-2'>
-           <label htmlFor='Rollno' className="text-sm font-medium text-gray-700">Rollno:</label>
-           <input className={'w-full border rounded p-2 $ {errors.rollno && errors.rollno.type==="required" ? "border-red-500" : "border-gray-300"}'}
-            type='text'
-            placeholder='enter the Rollno'
-            value={student.rollno}
-            onChange={(e) => setStudent({ ...student, rollno:e.target.value} )}
-            />
-        </div>
+   
         <div className='form-group mb-3 p-2'>
            <label htmlFor='name' className="text-sm font-medium text-gray-700">Name:</label>
            <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
             type='text'
             placeholder='enter the name'
-            value={student.name}
+            value={student?.name}
             onChange={(e) => setStudent({ ...student, name:e.target.value} )}
             />
         </div>
@@ -110,7 +120,7 @@ axios.post('http://localhost:3004/student/update', body)
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='email'
              placeholder='enter the email'
-             value={student.email}
+             value={student?.email}
              onChange={(e) => setStudent({ ...student, email: e.target.value })}
            
             />
@@ -120,7 +130,7 @@ axios.post('http://localhost:3004/student/update', body)
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='text'
              placeholder='select the course'
-             value={student.course}
+             value={student?.course}
              onChange={(e) => setStudent({ ...student, course: e.target.value })}
            
             />
@@ -131,7 +141,7 @@ axios.post('http://localhost:3004/student/update', body)
             <input className={'w-full border rounded p-2 $ {errors.phone && errors.phone.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='number'
              placeholder='enter the phone'
-             value={student.phone}
+             value={student?.phone}
              onChange={(e) => setStudent({ ...student, age: e.target.value })}
             />
         </div>
@@ -141,12 +151,12 @@ axios.post('http://localhost:3004/student/update', body)
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
              type='text'
              placeholder='enter the password'
-             value={student.password}
+             value={student?.password}
              onChange={(e) => setStudent({ ...student, password: e.target.value })}
            
             />
         </div>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Update</button>
+        <Link href='/' className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
      </form>
     </div>
    </div>

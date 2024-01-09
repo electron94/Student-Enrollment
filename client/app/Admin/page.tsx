@@ -50,6 +50,7 @@ const App = () => {
       .then(res => {
         console.log(res);
         alert("deleted successfully");
+        setStudent((prevStudents:any) => prevStudents.filter((student:any) => student._id !== id));
        
       })
       .catch(err=> console.log(err));

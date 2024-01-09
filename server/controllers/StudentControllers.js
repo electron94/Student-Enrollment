@@ -1,4 +1,3 @@
-
 const Student = require('../models/Student')
  
 //show the list of employees
@@ -28,47 +27,55 @@ const show =(req,res,next)=>{
         message:'an error occured'
     })
 }
-
+ 
 const store = (req, res, next) => {
+    // Extract student details from the request body
     const newStudent = {
-       
         name: req.body.name,
         email: req.body.email,
-        course:req.body.course,
+        course: req.body.course,
         phone: req.body.phone,
-        password:req.body.password
+        password: req.body.password
     };
-
+ 
     // Check for duplicate email
     Student.findOne({ email: newStudent.email })
         .then(existingStudent => {
             if (existingStudent) {
-                // Employee with this email already exists
-                res.json({
-                    message: 'student with this email already exists',
+                // Student with this email already exists
+                res.status(400).json({
+                    success: false,
+                    message: 'Student with this email already exists',
                 });
             } else {
                 // Email is not a duplicate, proceed to save
                 const student = new Student(newStudent);
                 student.save()
                     .then(() => {
-                        res.json({
+                        res.status(201).json({
+                            success: true,
+                            status:true,
                             message: 'Student added successfully',
                         });
                     })
                     .catch(error => {
-                        res.json({
+                        res.status(500).json({
+                            success: false,
                             message: 'An error occurred while saving the student',
                         });
                     });
             }
         })
         .catch(error => {
-            res.json({
+            res.status(500).json({
+                success: false,
                 message: 'An error occurred while checking for duplicate email',
             });
         });
 };
+ 
+ 
+ 
    // update an employee
     const update = (req, res, next) => {
         let StudentID = req.body.StudentID;
@@ -80,7 +87,7 @@ const store = (req, res, next) => {
             phone: req.body.phone,
             password: req.body.password
         };
-    
+   
         Student.findByIdAndUpdate(StudentID, { $set: updatedData }, { new: true })
             .then((updatedStudent) => {
                 if (!updatedStudent) {
@@ -117,27 +124,23 @@ const destroy =(req,res,next)=>{
         })
     })
 }
-const authenticate = (req, res) => {
-    const { email, password } = req.body;
-   
-    // Check the email and password against your database
-    Student.findOne({ email, password })
-      .then(student => {
-        if (student) {
-          // In a real-world scenario, you'd generate a JWT token and return it to the client
-          // For simplicity, we're returning a plain object here
-          res.json({ token: 'your_generated_token' });
-        } else {
-          res.status(401).json({ error: 'Authentication failed' });
-        }
-      })
-      .catch(error => {
-        res.status(500).json({ error: 'An error occurred' });
-      });
-  };
+ 
+ 
+const authenticate= async (req, res) => {
+ 
+    try {
+        const userDetails = req.body;
+        const email = userDetails.email;
+        const password = userDetails.password;
+        const userData  = await Student.findOne({ email: email ,password:password});
+        return res.status(200).json({ Status: true, user_details: userData,message: "User login successfully!" })
+    } catch (err) {
+        return res.status(500).json({ Status: false, message: "Internal Server Error!" })
+    }
+  }
+ 
+ 
  
 module.exports={
     index,show,store,update,destroy,authenticate
-} 
-
- 
+}

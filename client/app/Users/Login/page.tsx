@@ -14,20 +14,23 @@ interface FormData {
 }
  
  
+// ... (other imports)
+
 function Login() {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors }, trigger } = useForm<FormData>();
- 
+
+  // Function to handle login form submission
   const handleLogin = async (data: FormData) => {
     try {
       // Call authenticateUser with email and password from the form data
       const response = await authenticateUser(data.email, data.password);
- 
+
       // Check if authentication is successful
-      if (response.token) {
-        // If authentication is successful, you can save the token to localStorage or use a state management library
-        localStorage.setItem('token', response.token);
- 
+      if (response.Status) {
+        // If authentication is successful, you can save any user details to localStorage
+        localStorage.setItem('userDetails', JSON.stringify(response.user_details));
+
         // Navigate to the view page
         router.push("/Users/View");
       } else {
@@ -38,6 +41,7 @@ function Login() {
       // Handle other errors (e.g., network issues)
       console.error("Error during authentication:", error);
     }
+
   };
  
   return (
@@ -82,6 +86,6 @@ function Login() {
       </div>
     </main>
   );
-}
- 
+
+  }
 export default Login;

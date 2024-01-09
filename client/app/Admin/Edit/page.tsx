@@ -108,8 +108,9 @@ axios.post('http://localhost:3004/student/update', body)
               }}
             />
              {errors.name && errors.name.type === "required" &&  <p className='text-red-500 text-sm'>Please enter the name</p>}
-            {errors.name && errors.name.type === "minLength" && <p className='text-yellow-500 text-sm'>Please enter at least 4 characters</p>}
+            {errors.name && errors.name.type === "minLength" && <p className='text-red-500 text-sm'>Please enter at least 4 characters</p>}
         </div>
+        
         <div className='form-group mb-3 p-2'>
             <label htmlFor='email'  className="text-sm font-medium text-gray-700">Email:</label>
             <input className={'w-full border rounded p-2 $ {errors.name && errors.name.type==="required" ? "border-red-500" : "border-gray-300"}'}
@@ -129,7 +130,7 @@ axios.post('http://localhost:3004/student/update', body)
            
             />
              {errors.email && errors.email.type==="required" && <p className='text-red-500 text-sm'>please enter the email</p>}
-              {errors.email && errors.email.type==="pattern" && <p className='text-yellow-500 text-sm'>please enter valid email</p>}
+              {errors.email && errors.email.type==="pattern" && <p className='text-red-500 text-sm'>please enter valid email</p>}
         </div>
         <div className='form-group mb-3 p-2'>
             <label htmlFor='course'  className="text-sm font-medium text-gray-700">course:</label>
@@ -161,7 +162,7 @@ axios.post('http://localhost:3004/student/update', body)
              }}
             />
               {errors.phone && errors.phone.type==="required"&&<p className='text-red-500 text-sm'>please enter number</p>}
-              {errors.phone && errors.phone.type==="pattern"&&<p className='text-green-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
+              {errors.phone && errors.phone.type==="pattern"&&<p className='text-red-500 text-sm'>please enter exactly 10 digits and only enter digits</p>}
         </div>
  
         <div className='form-group mb-3 p-2'>
@@ -181,7 +182,7 @@ axios.post('http://localhost:3004/student/update', body)
            
             />
              {errors.password && errors.password.type === "required" && <p className='text-red-500 text-sm'>Please enter the password</p>}
-            {errors.password && errors.password.type === "minLength" && <p className='text-yellow-500 text-sm'>Password must be at least 8 characters</p>}
+            {errors.password && errors.password.type === "minLength" && <p className='text-red-500 text-sm'>Password must be at least 8 characters</p>}
         </div>
         <button type="submit" className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3">Update</button>
         <Link href='/' className="bg-blue-500 hover:bg-blue-600 rounded-lg px-6 py-3" >Cancel</Link>
