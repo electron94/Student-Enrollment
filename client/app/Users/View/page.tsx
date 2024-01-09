@@ -96,7 +96,7 @@ const view = () => {
              placeholder='enter the password'
              value={student?.password}/>
         </div>
-        <Link href='/' className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
+        <Link href='/Login' className="bg-blue-700 text-white font-semibold rounded p-1 cursor-pointer" >Cancel</Link>
      </form>
     </div>
    </div>
