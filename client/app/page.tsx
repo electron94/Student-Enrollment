@@ -1,6 +1,5 @@
 'use client'
-import Link from 'next/link';
-// Example in your main page
+
 import React from 'react';
  
  
