@@ -87,13 +87,11 @@ const EnrollmentForm= () => {
       router.push('/');
     }else{
       setSelectMessage(data.message);
+      console.error('Error saving data:', response);
     }
  
       if (data.ok) {
         console.log('Data saved successfully');
-        alert("data submitted successfully");
-       
- 
         // Add any other logic you need after successful submission
       } else {
         console.error('Error saving data:', response);
