@@ -8,22 +8,21 @@ const App = () => {
   const router = useRouter();
  
   const [Student, setStudent] = useState<any>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10; // Set the number of items to display per page
  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
- 
   };
  
   useEffect(() => {
-    axios
-      .get<any>('http://localhost:3004/student')
+    axios.get<any>('http://localhost:3004/student')
       .then((res) => {
         setStudent(res.data.response);
         console.log('StudentData', res.data.response);
       })
       .catch((err) => console.log(err));
   }, []);
- 
  
   const handleDeleteSubmit = (id:any) => {
     console.log('deleting employee with ID:',id);
@@ -40,13 +39,18 @@ const App = () => {
       .catch(err=> console.log(err));   
   }
  
- 
   const handleEdit =(e:any, id:any) => {
     e.preventDefault()
     let userId: any = id;
     localStorage.setItem("UserId", userId);
     router.push(`/Admin/Edit?id=${id}`)
   }
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = Student.slice(indexOfFirstItem, indexOfLastItem);
+ 
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
   
   return (
    
@@ -67,8 +71,8 @@ const App = () => {
             </thead>
 
             <tbody>
-              {Array.isArray(Student) &&
-                Student.map((d, index) => (
+              {Array.isArray(currentItems) &&
+               currentItems.map((d, index) => (
                   <tr key={index}>
                      <td className="px-4 py-4 whitespace-nowrap">{d._id}</td>
                      <td className="px-4 py-4 whitespace-nowrap">{d.name}</td>
@@ -90,6 +94,19 @@ const App = () => {
                 ))}
             </tbody>
           </table>
+          <div className="mt-4 flex justify-center">
+          {Array.from({ length: Math.ceil(Student.length / itemsPerPage) }).map((_, index) => (
+            <button
+              key={index}
+              className={`mx-2 px-3 py-2 rounded ${
+                currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'
+              }`}
+              onClick={() => paginate(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
         </form>
       </div>
   );
