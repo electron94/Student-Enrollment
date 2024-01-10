@@ -2,7 +2,7 @@ const Student = require('../models/Student')
  
 //show the list of employees
 const index =(req,res,next)=>{
-    Student.find()
+    Student.find().sort({ _id: -1 })
     .then(response=>{
         res.json({
             response
